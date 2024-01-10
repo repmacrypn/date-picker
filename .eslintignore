@@ -1,6 +1,7 @@
 *.css
 *.scss
 *.json
+*.mjs
 dist
 build
 node_modules
