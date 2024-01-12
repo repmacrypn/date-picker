@@ -40,6 +40,8 @@ Thumbs.db
 # yarn
 yarn-error.log
 yarn
+.yarn
+.yarnrc.yml
 
 #storybook
 storybook-static

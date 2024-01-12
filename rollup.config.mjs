@@ -6,6 +6,7 @@ import typescript from '@rollup/plugin-typescript'
 import dts from 'rollup-plugin-dts'
 import external from 'rollup-plugin-peer-deps-external'
 import { terser } from 'rollup-plugin-terser'
+import url from '@rollup/plugin-url'
 import postcss from 'rollup-plugin-postcss'
 import packageJson from './package.json' assert { type: 'json' }
 
@@ -34,6 +35,11 @@ export default [
       alias({
         resolve: ['.js', '.jsx', '.ts', '.tsx'],
         entries: [{ find: 'src', replacement: './src' }],
+      }),
+      url({
+        include: ['**/*.woff', '**/*.woff2', '**/*.ttf', '**/*.png'],
+        limit: false,
+        emitFiles: true,
       }),
       external(),
       resolve(),
