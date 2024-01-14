@@ -1,22 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Button } from '@/components/Button'
+import { DatePicker } from '@/components/DatePicker'
 
 const meta = {
-  component: Button,
-} satisfies Meta<typeof Button>
+  component: DatePicker,
+} satisfies Meta<typeof DatePicker>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
-  args: {
-    label: 'Primary',
-  },
-}
-
-export const Secondary: Story = {
-  args: {
-    label: 'Secondary',
-  },
+  args: {},
 }
