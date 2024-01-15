@@ -47,13 +47,17 @@ export const HeaderTitle = styled.h3`
 const daysStyles = css`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+  gap: ${({ theme }) => theme.valueInPx.px4};
 `
 
 export const Weekdays = styled.div`
   ${daysStyles}
+  margin-bottom: ${({ theme }) => theme.valueInPx.px2};
 `
 
 export const Weekday = styled.h2`
+  display: flex;
+  justify-content: center;
   padding: ${({ theme }) => theme.valueInPx.px10};
   color: ${({ theme }) => theme.usedColors.black2};
   font-size: ${({ theme }) => theme.fontSize.l};
@@ -65,19 +69,20 @@ export const Datedays = styled.div`
   ${daysStyles}
 `
 
-export const Dateday = styled.div<{ isSelected?: boolean }>`
-  padding: ${({ theme }) => theme.valueInPx.px10};
+export const Dateday = styled.div<{ $isSelected?: boolean }>`
+  padding: ${({ theme }) => theme.valueInPx.px8};
   text-align: center;
   font-size: ${({ theme }) => theme.fontSize.l};
   font-weight: ${({ theme }) => theme.fontWeight.semibold};
-  color: ${({ isSelected, theme }) => (isSelected ? theme.usedColors.white1 : 'inherit')};
   border-radius: ${({ theme }) => theme.valueInPx.px8};
-  background-color: ${({ isSelected, theme }) =>
-    isSelected ? theme.usedColors.blue1 : 'transparent'};
+  color: ${({ $isSelected, theme }) =>
+    $isSelected ? theme.usedColors.white1 : 'inherit'};
+  background-color: ${({ $isSelected, theme }) =>
+    $isSelected ? theme.usedColors.blue1 : 'transparent'};
 
   &:hover {
-    cursor: ${({ isSelected }) => (isSelected ? 'default' : 'pointer')};
-    background-color: ${({ isSelected, theme }) =>
-      isSelected ? theme.usedColors.blue1 : theme.usedColors.white2};
+    cursor: ${({ $isSelected }) => ($isSelected ? 'default' : 'pointer')};
+    background-color: ${({ $isSelected, theme }) =>
+      $isSelected ? theme.usedColors.blue1 : theme.usedColors.white2};
   }
 `

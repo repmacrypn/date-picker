@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { MoveToIcon } from '@/assets/icons/MoveToIcon'
 import GlobalConfig from '@/decorators/components/DatePickerConfig'
@@ -16,6 +16,12 @@ import {
 } from './styled'
 
 export const DatePicker = () => {
+  const [selectedDate, setSelectedDate] = useState<Date>()
+
+  const handleDayClick = (date: Date) => {
+    setSelectedDate(date)
+  }
+
   const renderWeekDays = () => {
     const weekdays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
 
@@ -29,14 +35,53 @@ export const DatePicker = () => {
   }
 
   const renderDateDays = () => {
-    const dateDays = []
+    let currentDate = new Date()
 
-    for (let i = 1; i < 35; i++) dateDays.push(i)
+    if (selectedDate) {
+      currentDate = new Date(selectedDate)
+    }
+
+    const year = currentDate.getFullYear()
+    const month = currentDate.getMonth()
+    const daysInMonth = new Date(year, month + 1, 0).getDate()
+    const startDay = new Date(year, month, 1).getDay() || 7 // 1 = Monday, 7 = Sunday
+    const days: Date[] = []
+
+    // Add previous month's days
+    for (let i = startDay - 2; i >= 0; i--) {
+      const date = new Date(year, month, -i)
+
+      days.unshift(date)
+    }
+
+    // Add current month's days
+    for (let i = 1; i <= daysInMonth; i++) {
+      const date = new Date(year, month, i)
+
+      days.push(date)
+    }
+
+    // Add next month's days
+    const endDay = new Date(year, month, daysInMonth).getDay() || 7 // 1 = Monday, 7 = Sunday
+
+    for (let i = 1; i <= 7 - endDay; i++) {
+      const date = new Date(year, month + 1, i)
+
+      days.push(date)
+    }
 
     return (
       <Datedays>
-        {dateDays.map((dateDay) => (
-          <Dateday key={dateDay}>{dateDay}</Dateday>
+        {days.map((date) => (
+          <Dateday
+            key={date.toISOString()}
+            onClick={() => handleDayClick(date)}
+            $isSelected={
+              selectedDate && date.toDateString() === selectedDate.toDateString()
+            }
+          >
+            {date.getDate()}
+          </Dateday>
         ))}
       </Datedays>
     )

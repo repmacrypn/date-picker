@@ -34,6 +34,7 @@ export interface ITheme {
     px0: string
     px1: string
     px2: string
+    px4: string
     px5: string
     px8: string
     px10: string
