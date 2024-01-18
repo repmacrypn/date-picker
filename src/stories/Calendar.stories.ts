@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { DatePicker } from '@/components/DatePicker'
+import { Calendar } from '@/components/Calendar'
 
 const meta = {
-  component: DatePicker,
-} satisfies Meta<typeof DatePicker>
+  title: 'ReactComponentLibrary/Calendar',
+  component: Calendar,
+} satisfies Meta<typeof Calendar>
 
 export default meta
 type Story = StoryObj<typeof meta>

@@ -1,7 +1,6 @@
 import { Dayjs } from 'dayjs'
 
-export interface IDatePicker {
-  shownDate: Dayjs
+export interface ICalendar {
   selectedDate: Dayjs
   onChange: (newDate: Dayjs) => void
 }

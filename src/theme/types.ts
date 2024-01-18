@@ -7,6 +7,7 @@ export interface IUsedColors {
   black2: string
   white1: string
   white2: string
+  white3: string
   blue1: string
   blue2: string
   blue3: string

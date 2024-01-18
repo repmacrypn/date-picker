@@ -9,6 +9,7 @@ export const usedColors: IUsedColors = {
   black2: 'rgba(51, 51, 51, 1)',
   white1: 'rgba(255, 255, 255, 1)',
   white2: 'rgba(241, 241, 241, 1)',
+  white3: 'rgba(0, 0, 0, 0.24)',
   blue1: 'rgba(47, 128, 237, 1)',
   blue2: 'rgba(47, 128, 237, 0.6)',
   blue3: 'rgba(47, 128, 237, 0.1)',

@@ -1,107 +1,44 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
+import { Dayjs } from 'dayjs'
 
-import { MoveToIcon } from '@/assets/icons/MoveToIcon'
 import GlobalConfig from '@/decorators/components/DatePickerConfig'
+import { getCalendarRows } from '@/utils/helpers/date'
 
-import {
-  CalendarContainer,
-  Dateday,
-  Datedays,
-  HeaderContainer,
-  HeaderTitle,
-  Left,
-  Right,
-  Weekday,
-  Weekdays,
-} from './styled'
+import { IDatePicker } from './interface'
+import { DateDay, DateDays, WeekDay, WeekDays } from './styled'
 
-export const DatePicker = () => {
-  const [selectedDate, setSelectedDate] = useState<Date>()
+export const DatePicker = ({ shownDate, selectedDate, onChange }: IDatePicker) => {
+  const [startOfWeek, setStartOfWeek] = useState(1)
 
-  const handleDayClick = (date: Date) => {
-    setSelectedDate(date)
+  const handleSelectDate = (value: Dayjs) => {
+    return () => onChange(value)
   }
 
-  const renderWeekDays = () => {
-    const weekdays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
-
-    return (
-      <Weekdays>
-        {weekdays.map((weekday) => (
-          <Weekday key={weekday}>{weekday}</Weekday>
-        ))}
-      </Weekdays>
-    )
-  }
-
-  const renderDateDays = () => {
-    let currentDate = new Date()
-
-    if (selectedDate) {
-      currentDate = new Date(selectedDate)
-    }
-
-    const year = currentDate.getFullYear()
-    const month = currentDate.getMonth()
-    const daysInMonth = new Date(year, month + 1, 0).getDate()
-    const startDay = new Date(year, month, 1).getDay() || 7 // 1 = Monday, 7 = Sunday
-    const days: Date[] = []
-
-    // Add previous month's days
-    for (let i = startDay - 2; i >= 0; i--) {
-      const date = new Date(year, month, -i)
-
-      days.unshift(date)
-    }
-
-    // Add current month's days
-    for (let i = 1; i <= daysInMonth; i++) {
-      const date = new Date(year, month, i)
-
-      days.push(date)
-    }
-
-    // Add next month's days
-    const endDay = new Date(year, month, daysInMonth).getDay() || 7 // 1 = Monday, 7 = Sunday
-
-    for (let i = 1; i <= 7 - endDay; i++) {
-      const date = new Date(year, month + 1, i)
-
-      days.push(date)
-    }
-
-    return (
-      <Datedays>
-        {days.map((date) => (
-          <Dateday
-            key={date.toISOString()}
-            onClick={() => handleDayClick(date)}
-            $isSelected={
-              selectedDate && date.toDateString() === selectedDate.toDateString()
-            }
-          >
-            {date.getDate()}
-          </Dateday>
-        ))}
-      </Datedays>
-    )
-  }
+  const rows = useMemo(() => {
+    return getCalendarRows(shownDate, startOfWeek)
+  }, [shownDate, startOfWeek])
 
   return (
     <GlobalConfig>
-      <CalendarContainer>
-        <HeaderContainer>
-          <Left>
-            <MoveToIcon />
-          </Left>
-          <HeaderTitle>November 2022</HeaderTitle>
-          <Right>
-            <MoveToIcon />
-          </Right>
-        </HeaderContainer>
-        {renderWeekDays()}
-        {renderDateDays()}
-      </CalendarContainer>
+      <WeekDays>
+        {rows[0].map(({ value }, i) => (
+          <WeekDay key={i}>{value.format('dd')}</WeekDay>
+        ))}
+      </WeekDays>
+      {rows.map((cells, rowIndex) => (
+        <DateDays key={rowIndex}>
+          {cells.map(({ text, value, isCurrentMonth }, i) => (
+            <DateDay
+              key={`${text} - ${i}`}
+              $isSelected={value.toString() === selectedDate?.toString()}
+              $isCurrentMonth={isCurrentMonth || false}
+              onClick={handleSelectDate(value)}
+            >
+              {text}
+            </DateDay>
+          ))}
+        </DateDays>
+      ))}
     </GlobalConfig>
   )
 }

@@ -18,7 +18,7 @@ export const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
     overflow-x: hidden;
     line-height: 1;
-    font-family: ${({ theme }) => theme.fontFamily[0]}, sans-serif;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-weight: ${({ theme }) => theme.fontWeight.normal};
 
     ul {
@@ -37,12 +37,16 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     ::-webkit-scrollbar-track {
-      background-color: ${({ theme }) => theme.usedColors.white1};
+      background-color: ${({ theme }) => theme.usedColors.black1};
     }
 
     ::-webkit-scrollbar-thumb {
-      background-color: ${({ theme }) => theme.usedColors.white1};
+      background-color: ${({ theme }) => theme.usedColors.black1};
       border-radius: ${({ theme }) => theme.valueInPx.px8};
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: ${({ theme }) => theme.usedColors.gray1};
     }
 
     :active {
