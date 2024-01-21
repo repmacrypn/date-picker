@@ -3,14 +3,19 @@ import dayjs, { Dayjs } from 'dayjs'
 
 import { DatePicker } from '@/components/DatePicker'
 import { DateViewSelector } from '@/components/DateViewSelector'
+import { YearsMonthsView } from '@/components/YearsMonthsView'
+import { CustomInput } from '@/components/YearsMonthsView/CustomInput'
 import GlobalConfig from '@/decorators/components/DatePickerConfig'
 
 import { Container } from './styled'
 
 export const Calendar = () => {
   const [date, setDate] = useState<Dayjs>(dayjs())
-  const [shownDate, setShownDate] = useState(date.clone())
   const [showMonthYear, setShowMonthYear] = useState(false)
+
+  const onClickShowMonthYear = () => {
+    setShowMonthYear((prev) => !prev)
+  }
 
   const onChange = (date: Dayjs) => {
     setDate(date)
@@ -19,13 +24,24 @@ export const Calendar = () => {
   return (
     <GlobalConfig>
       <Container>
-        <DateViewSelector
-          shownDate={shownDate}
-          setShownDate={setShownDate}
-          showMonthYear={showMonthYear}
-          setShowMonthYear={setShowMonthYear}
+        <CustomInput
+          date={date}
+          onChooseDate={onChange}
+          placeholder='Choose Date (yyyy-mm-dd)'
         />
-        <DatePicker selectedDate={date} shownDate={shownDate} onChange={onChange} />
+        <DateViewSelector
+          shownDate={date}
+          onChange={onChange}
+          setShowMonthYear={onClickShowMonthYear}
+        />
+        {showMonthYear && (
+          <YearsMonthsView
+            shownDate={date}
+            onChange={onChange}
+            setShowMonthYear={onClickShowMonthYear}
+          />
+        )}
+        <DatePicker selectedDate={date} shownDate={date} onChange={onChange} />
       </Container>
     </GlobalConfig>
   )

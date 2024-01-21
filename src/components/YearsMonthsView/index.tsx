@@ -1,56 +1,37 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
-import { MonthSelector } from '@/components/YearsMonthsView/MonthSelector'
-import { YearSelector } from '@/components/YearsMonthsView/YearSelector'
+import { CustomSelect } from '@/components/YearsMonthsView/CustomSelect'
+import { SelectEnum } from '@/components/YearsMonthsView/CustomSelect/interface'
 
 import { IDisplayYearMonths } from './interface'
 import { Wrapper } from './styled'
 
-interface IYearMonthData {
-  year?: number
-  month?: number
-}
-
 export const YearsMonthsView = ({
   shownDate,
-  setShownDate,
+  onChange,
   setShowMonthYear,
 }: IDisplayYearMonths) => {
-  const [yearMonthData, setYearMonthData] = useState<IYearMonthData | null>(null)
   const handleMonthSelect = (month: number) => {
-    if (month) {
-      setYearMonthData((prev) => ({
-        ...prev,
-        month,
-      }))
-    }
+    onChange(shownDate?.month(month))
+    setShowMonthYear(false)
   }
 
   const handleYearSelect = (year: number) => {
-    if (year) {
-      setYearMonthData((prev) => ({
-        ...prev,
-        year,
-      }))
-    }
+    onChange(shownDate?.year(year))
   }
-
-  useEffect(() => {
-    if (yearMonthData?.year && yearMonthData.month) {
-      setShownDate(shownDate?.month(yearMonthData.month))
-      setShownDate(shownDate?.year(yearMonthData?.year))
-      setShowMonthYear(false)
-    }
-  }, [yearMonthData, setShownDate, setShowMonthYear, shownDate])
-
-  useEffect(() => {
-    setYearMonthData(null)
-  }, [])
 
   return (
     <Wrapper>
-      <MonthSelector selectedMonth={shownDate?.month()} onSelect={handleMonthSelect} />
-      <YearSelector selectedYear={shownDate?.year()} onSelect={handleYearSelect} />
+      <CustomSelect
+        type={SelectEnum.Year}
+        selectedValue={shownDate?.year()}
+        onSelect={handleYearSelect}
+      />
+      <CustomSelect
+        type={SelectEnum.Month}
+        selectedValue={shownDate?.month()}
+        onSelect={handleMonthSelect}
+      />
     </Wrapper>
   )
 }

@@ -27,16 +27,20 @@ export const DatePicker = ({ shownDate, selectedDate, onChange }: IDatePicker) =
       </WeekDays>
       {rows.map((cells, rowIndex) => (
         <DateDays key={rowIndex}>
-          {cells.map(({ text, value, isCurrentMonth }, i) => (
-            <DateDay
-              key={`${text} - ${i}`}
-              $isSelected={value.toString() === selectedDate?.toString()}
-              $isCurrentMonth={isCurrentMonth || false}
-              onClick={handleSelectDate(value)}
-            >
-              {text}
-            </DateDay>
-          ))}
+          {cells.map(({ text, value, isCurrentMonth, isWeekend, isToday }, i) => {
+            return (
+              <DateDay
+                key={`${text} - ${i}`}
+                $isSelected={value.toString() === selectedDate?.toString()}
+                $isCurrentMonth={isCurrentMonth || false}
+                $isWeekend={isWeekend || false}
+                $isToday={isToday || false}
+                onClick={handleSelectDate(value)}
+              >
+                {text}
+              </DateDay>
+            )
+          })}
         </DateDays>
       ))}
     </GlobalConfig>

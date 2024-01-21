@@ -28,6 +28,8 @@ export const DateDays = styled.div`
 export const DateDay = styled.div<{
   $isSelected?: boolean
   $isCurrentMonth: boolean | string
+  $isWeekend: boolean
+  $isToday: boolean
 }>`
   padding: ${({ theme }) => theme.valueInPx.px8};
   text-align: center;
@@ -50,5 +52,17 @@ export const DateDay = styled.div<{
     !$isCurrentMonth &&
     css`
       color: ${({ theme }) => theme.usedColors.gray4};
+    `}
+
+  ${({ $isWeekend }) =>
+    $isWeekend &&
+    css`
+      color: ${({ theme }) => theme.usedColors.red1};
+    `}
+
+  ${({ $isToday }) =>
+    $isToday &&
+    css`
+      border: 1px solid ${({ theme }) => theme.usedColors.gray2};
     `}
 `

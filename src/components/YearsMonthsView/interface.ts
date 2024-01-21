@@ -1,8 +1,7 @@
-import React from 'react'
 import { Dayjs } from 'dayjs'
 
 export interface IDisplayYearMonths {
   shownDate: Dayjs
-  setShownDate: React.Dispatch<React.SetStateAction<Dayjs>>
+  onChange: (date: Dayjs) => void
   setShowMonthYear: (value: boolean) => void
 }
