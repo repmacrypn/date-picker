@@ -17,7 +17,6 @@ export const GlobalStyles = createGlobalStyle`
     border: 0;
     box-sizing: border-box;
     overflow-x: hidden;
-    line-height: 1;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-weight: ${({ theme }) => theme.fontWeight.normal};
 

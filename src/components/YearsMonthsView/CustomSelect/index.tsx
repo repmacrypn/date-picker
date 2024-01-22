@@ -39,9 +39,9 @@ export const CustomSelect = ({ selectedValue, onSelect, type }: ICustomSelect) =
     <Container>
       <SelectedOption onClick={onClickOpenSelect}>
         {selectValue}
-        <ArrowIcon open={isOpenSelect} />
+        <ArrowIcon $open={isOpenSelect} />
       </SelectedOption>
-      <OptionsContainer open={isOpenSelect}>
+      <OptionsContainer $open={isOpenSelect}>
         {typeRule
           ? months.map((month, index) => (
               <Option key={month} onClick={handleSelectM(index)}>
@@ -51,7 +51,7 @@ export const CustomSelect = ({ selectedValue, onSelect, type }: ICustomSelect) =
           : years.map((year) => (
               <Option
                 key={year}
-                selected={selectedValue === year}
+                $selected={selectedValue === year}
                 onClick={handleSelectY(year)}
               >
                 {year}

@@ -3,6 +3,7 @@ export interface IUsedColors {
   gray2: string
   gray3: string
   gray4: string
+  gray5: string
   black1: string
   black2: string
   white1: string
@@ -37,14 +38,17 @@ export interface ITheme {
     px2: string
     px4: string
     px5: string
+    px7: string
     px8: string
     px10: string
+    px15: string
     px16: string
     px20: string
     px22: string
     px25: string
     px26: string
     px30: string
+    px32: string
     px34: string
     px40: string
     px45: string
