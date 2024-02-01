@@ -2,10 +2,6 @@ import { Dayjs } from 'dayjs'
 
 export interface ICustomInput {
   date: Dayjs
-  onChooseDate: IOnChoose
+  onChooseDate: (value: Dayjs) => void
   placeholder: string
-}
-
-export interface IOnChoose {
-  (value: Dayjs): void
 }
