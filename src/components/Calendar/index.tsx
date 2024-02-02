@@ -2,16 +2,17 @@ import React, { useEffect, useState } from 'react'
 import dayjs, { Dayjs } from 'dayjs'
 
 import { FilterIcon } from '@/assets/icons/FilterIcon'
+import { CustomInput } from '@/components/CustomInput'
+import { InputEnum } from '@/components/CustomInput/interface'
 import { DatePicker } from '@/components/DatePicker'
 import { DateViewSelector } from '@/components/DateViewSelector'
 import { Filters } from '@/components/Filters'
 import { YearsMonthsView } from '@/components/YearsMonthsView'
-import { CustomInput } from '@/components/YearsMonthsView/CustomInput'
 import GlobalConfig from '@/decorators/components/DatePickerConfig'
 import { WeekendStatusEnum } from '@/types'
 import { getDayOfWeek } from '@/utils/helpers/date'
 
-import { IHolidaysResponse } from './interface'
+import { IHolidaysResponse, ITaskInCalendar } from './interface'
 import { Container, FilterItemIcon, InputFilterBlock } from './styled'
 
 export const Calendar = () => {
@@ -21,8 +22,9 @@ export const Calendar = () => {
   const [statusWeekends, setStatusWeekends] = useState<WeekendStatusEnum>(
     WeekendStatusEnum.WithWeekEnds,
   )
-  const [startOfWeek, setStartOfWeek] = useState<number>(1)
+  const [startOfWeek, setStartOfWeek] = useState(1)
   const [holidays, setHolidays] = useState<IHolidaysResponse | undefined | null>()
+  const [tasksDate, setTasksDate] = useState<ITaskInCalendar>({})
 
   const year = date.format('YYYY')
 
@@ -60,6 +62,7 @@ export const Calendar = () => {
       <Container>
         <InputFilterBlock>
           <CustomInput
+            type={InputEnum.Date}
             date={date}
             onChooseDate={onChange}
             placeholder='Choose Date (yyyy-mm-dd)'
@@ -88,11 +91,15 @@ export const Calendar = () => {
           setStartOfWeek={setNumberStartOfWeek}
           holidays={holidays}
           statusWeekends={statusWeekends}
+          setTasksDate={setTasksDate}
+          tasksDate={tasksDate}
         />
         {showFilter && (
           <Filters
             statusWeekends={statusWeekends}
             setStatusWeekends={setStatusWeekends}
+            setTasksDate={setTasksDate}
+            onClickShowFilter={onClickShowFilter}
           />
         )}
       </Container>

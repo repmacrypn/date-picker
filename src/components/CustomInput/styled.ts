@@ -1,11 +1,12 @@
 import styled from 'styled-components'
 
-export const Container = styled.div`
+export const Container = styled.div<{ $ruleDateInput: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   position: relative;
+  /* margin-top: ${({ $ruleDateInput }) => (!$ruleDateInput ? '20px' : 'none')}; */
 `
 
 export const InputContainer = styled.div`

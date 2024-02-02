@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { CustomSelect } from '@/components/YearsMonthsView/CustomSelect'
-import { SelectEnum } from '@/components/YearsMonthsView/CustomSelect/interface'
+import { CustomSelect } from '@/components/CustomSelect'
+import { SelectEnum } from '@/components/CustomSelect/interface'
 
 import { IDisplayYearMonths } from './interface'
 import { Wrapper } from './styled'

@@ -1,6 +1,6 @@
 import { Dayjs } from 'dayjs'
 
-import { IHolidaysResponse } from '@/components/Calendar/interface'
+import { IHolidaysResponse, ITaskInCalendar } from '@/components/Calendar/interface'
 import { WeekendStatusEnum } from '@/types'
 
 export interface IDatePicker {
@@ -11,4 +11,6 @@ export interface IDatePicker {
   setStartOfWeek: (startOfWeek: string) => void
   holidays: IHolidaysResponse | undefined | null
   statusWeekends: WeekendStatusEnum
+  setTasksDate: (value: ITaskInCalendar) => void
+  tasksDate: ITaskInCalendar
 }

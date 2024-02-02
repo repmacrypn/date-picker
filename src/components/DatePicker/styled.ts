@@ -1,5 +1,12 @@
 import styled, { css } from 'styled-components'
 
+export const CalendarBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100%;
+`
+
 export const WeekDays = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -104,5 +111,39 @@ export const CircleMarker = styled.div`
     background-color: #39ea18;
     border-radius: 50%;
     margin-right: 8px;
+  }
+`
+
+export const TaskList = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: ${({ theme }) => theme.valueInPx.px5};
+  width: 100%;
+  margin: ${({ theme }) => theme.valueInPx.px20} ${({ theme }) => theme.valueInPx.px0};
+`
+
+export const Task = styled.h2`
+  padding-left: ${({ theme }) => theme.valueInPx.px10};
+  margin: ${({ theme }) => theme.valueInPx.px0} ${({ theme }) => theme.valueInPx.px10};
+  width: 100%;
+  border-radius: ${({ theme }) => theme.valueInPx.px8};
+  font-size: ${({ theme }) => theme.fontSize.l};
+  line-height: 1.4;
+  background-color: ${({ theme }) => theme.usedColors.gray1};
+  color: ${({ theme }) => theme.usedColors.black};
+`
+
+export const CircleTaskMarker = styled.div`
+  &::before {
+    content: '';
+    position: absolute;
+    top: 25%;
+    left: 22%;
+    width: ${({ theme }) => theme.valueInPx.px8};
+    height: ${({ theme }) => theme.valueInPx.px8};
+    margin-right: ${({ theme }) => theme.valueInPx.px10};
+    background-color: ${({ theme }) => theme.usedColors.green1};
+    border-radius: 50%;
   }
 `

@@ -6,10 +6,23 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: 125px;
-  background-color: #fff;
-  border: 1px solid #b3b3b3;
-  border-radius: 8px;
-  width: 320px;
-  height: 100px;
+  left: ${({ theme }) => theme.valueInPx.px25};
+  top: ${({ theme }) => theme.valueInPx.px15};
+  width: ${({ theme }) => theme.valueInPx.px250};
+  padding-bottom: ${({ theme }) => theme.valueInPx.px20};
+  background-color: ${({ theme }) => theme.usedColors.white2};
+  border: 1px solid ${({ theme }) => theme.usedColors.black2};
+  border-radius: ${({ theme }) => theme.valueInPx.px8};
+`
+
+export const CloseIcon = styled.div`
+  position: absolute;
+  right: ${({ theme }) => theme.valueInPx.px5};
+  top: ${({ theme }) => theme.valueInPx.px5};
+  cursor: pointer;
+  transition: ${({ theme }) => theme.animation.transition};
+
+  &:hover {
+    transform: scale(1.2);
+  }
 `

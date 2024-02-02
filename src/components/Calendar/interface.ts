@@ -15,3 +15,7 @@ export interface IHolidays {
   type: string[]
   urlid: string
 }
+
+export interface ITaskInCalendar {
+  [key: string]: string[]
+}

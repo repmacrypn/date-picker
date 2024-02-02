@@ -49,6 +49,8 @@ export const baseTheme: ITheme = {
     px22: '22px',
     px25: '25px',
     px26: '26px',
+    px27: '27px',
+    px28: '28px',
     px30: '30px',
     px32: '32px',
     px34: '34px',
