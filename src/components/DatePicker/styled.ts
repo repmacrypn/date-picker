@@ -38,16 +38,14 @@ export const DateDay = styled.div<{
   $isWeekend: boolean
   $isToday: boolean
   $isHoliday: boolean
+  $isInRange: boolean
+  $isStartDate: boolean | undefined
+  $isEndDate: boolean | undefined
 }>`
   padding: ${({ theme }) => theme.valueInPx.px8};
   text-align: center;
   font-size: ${({ theme }) => theme.fontSize.l};
   font-weight: ${({ theme }) => theme.fontWeight.semibold};
-  border-radius: ${({ theme }) => theme.valueInPx.px8};
-  color: ${({ $isSelected, theme }) =>
-    $isSelected ? theme.usedColors.white1 : 'inherit'};
-  background-color: ${({ $isSelected, theme }) =>
-    $isSelected ? theme.usedColors.blue1 : 'transparent'};
   transition: ${({ theme }) => theme.animation.transition};
 
   &:hover {
@@ -55,12 +53,6 @@ export const DateDay = styled.div<{
     background-color: ${({ $isSelected, theme }) =>
       $isSelected ? theme.usedColors.blue1 : theme.usedColors.white2};
   }
-
-  ${({ $isCurrentMonth }) =>
-    !$isCurrentMonth &&
-    css`
-      color: ${({ theme }) => theme.usedColors.gray4};
-    `}
 
   ${({ $isWeekend }) =>
     $isWeekend &&
@@ -79,6 +71,87 @@ export const DateDay = styled.div<{
     css`
       color: #39ea18;
     `}
+
+    background-color: ${({
+    $isInRange,
+    $isStartDate,
+    $isSelected,
+    $isEndDate,
+    theme,
+  }) => {
+    if ($isInRange) {
+      return theme.usedColors.blue3
+    }
+    if ($isStartDate) {
+      return theme.usedColors.blue2
+    }
+    if ($isEndDate || $isSelected) {
+      return theme.usedColors.blue1
+    }
+
+    return 'transparent'
+  }};
+
+  color: ${({
+    $isEndDate,
+    $isStartDate,
+    $isCurrentMonth,
+    $isSelected,
+    $isWeekend,
+    $isHoliday,
+    $isInRange,
+    theme,
+  }) => {
+    if ($isEndDate || $isStartDate || $isSelected) {
+      return theme.usedColors.white1
+    }
+    if ($isInRange) {
+      return theme.usedColors.blue1
+    }
+    if ($isWeekend) {
+      return theme.usedColors.red1
+    }
+    if ($isHoliday) {
+      return theme.usedColors.green1
+    }
+    if (!$isCurrentMonth) {
+      return theme.usedColors.gray4
+    }
+
+    return 'inherit'
+  }};
+
+  border-radius: ${({ $isInRange, $isStartDate, $isEndDate, theme }) => {
+    if ($isInRange || $isStartDate || $isEndDate) {
+      return 0
+    }
+
+    return theme.valueInPx.px8
+  }};
+
+  border-bottom-left-radius: ${({ $isStartDate, theme }) => {
+    if ($isStartDate) {
+      return theme.valueInPx.px8
+    }
+  }};
+
+  border-bottom-right-radius: ${({ $isEndDate, theme }) => {
+    if ($isEndDate) {
+      return theme.valueInPx.px8
+    }
+  }};
+
+  border-top-left-radius: ${({ $isStartDate, theme }) => {
+    if ($isStartDate) {
+      return theme.valueInPx.px8
+    }
+  }};
+
+  border-top-right-radius: ${({ $isEndDate, theme }) => {
+    if ($isEndDate) {
+      return theme.valueInPx.px8
+    }
+  }};
 `
 
 export const TooltipBlock = styled.div`

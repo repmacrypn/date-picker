@@ -3,6 +3,7 @@ import dayjs from 'dayjs'
 
 import { CalendarIcon } from '@/assets/icons/CalendarIcon'
 import { XIcon } from '@/assets/icons/XIcon'
+import { FormatEnum } from '@/constants/dateFormats'
 
 import { ICustomInput, InputEnum } from './interface'
 import { CalIcon, Container, DelIcon, InputContainer, InputItem } from './styled'
@@ -47,9 +48,9 @@ export const CustomInput = memo(
 
     useEffect(() => {
       if (date) {
-        setChooseDate(date.format('YYYY-MM-DD'))
+        setChooseDate(date.format(FormatEnum.YearMonthDayFormat))
       }
-    }, [date])
+    }, [date, setChooseDate])
 
     return (
       <Container $ruleDateInput={ruleDateInput}>

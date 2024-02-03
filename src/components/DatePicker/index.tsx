@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { Dayjs } from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 
 import { CustomInput } from '@/components/CustomInput'
 import { InputEnum } from '@/components/CustomInput/interface'
+import { FormatEnum } from '@/constants/dateFormats'
 import { WeekendStatusEnum } from '@/types'
 import { getCalendarRows, getDayOfWeek } from '@/utils/helpers/date'
 
@@ -31,6 +32,8 @@ export const DatePicker = ({
   statusWeekends,
   setTasksDate,
   tasksDate,
+  rangeDays,
+  setRangeDays,
 }: IDatePicker) => {
   const [holiday, setHoliday] = useState<null | string>(null)
   const [showTooltip, setShowTooltip] = useState(false)
@@ -38,7 +41,7 @@ export const DatePicker = ({
   const [showTaskControl, setShowTaskControl] = useState(false)
   const [taskValue, setTaskValue] = useState('')
 
-  const dateKey = selectedDate.format('YYYY-MM-DD')
+  const dateKey = selectedDate.format(FormatEnum.YearMonthDayFormat)
 
   const handleMouseEnter = (tooltip: string | undefined) => () => {
     if (tooltip) {
@@ -47,15 +50,65 @@ export const DatePicker = ({
     }
   }
 
+  const isInRange = (date: Dayjs, startDate: string, endDate: string) => {
+    return date.isAfter(startDate, 'day') && date.isBefore(endDate, 'day')
+  }
+
   const handleMouseLeave = () => {
     setHoliday(null)
     setShowTooltip(false)
   }
 
   const handleSelectDate = (value: Dayjs) => () => {
-    setShowTaskControl(true)
+    if (onChange) {
+      setShowTaskControl(true)
+      onChange(value)
+    }
 
-    onChange(value)
+    if (setRangeDays) {
+      const getDayFormat = (day: Dayjs) => {
+        return dayjs(day).format(FormatEnum.YearMonthDayFormat)
+      }
+
+      const dateFormat = getDayFormat(value)
+
+      if (!rangeDays?.from && !rangeDays?.to.length) {
+        setRangeDays({ from: dateFormat, to: '' })
+      }
+      if (!rangeDays?.to && rangeDays?.from) {
+        handleChangeState(rangeDays?.from, dateFormat)
+      } else if (!rangeDays?.to.length && rangeDays?.from) {
+        handleChangeState(rangeDays?.from, dateFormat)
+      } else if (rangeDays?.from && rangeDays?.to) {
+        setRangeDays({ from: dateFormat, to: '' })
+      }
+    }
+  }
+
+  const handleChangeState = (from: string, to: string) => {
+    if (setRangeDays) {
+      if (dayjs(from).isBefore(to)) {
+        setRangeDays({
+          from,
+          to,
+        })
+      } else {
+        setRangeDays({
+          from: to,
+          to: from,
+        })
+      }
+    }
+  }
+
+  const getEndDateForClasses = () => {
+    if (rangeDays) {
+      if (rangeDays.to) return rangeDays.to
+
+      return rangeDays.from
+    }
+
+    return ''
   }
 
   const changeStartWeekDay = (value: string) => () => {
@@ -96,10 +149,10 @@ export const DatePicker = ({
         {rows[0].map(({ value }, i) => (
           <WeekDay
             key={i}
-            $isStartOfWeek={startOfWeek === getDayOfWeek(value.format('dd'))}
-            onClick={changeStartWeekDay(value.format('dd'))}
+            $isStartOfWeek={startOfWeek === getDayOfWeek(value.format(FormatEnum.Day))}
+            onClick={changeStartWeekDay(value.format(FormatEnum.Day))}
           >
-            {value.format('dd')}
+            {value.format(FormatEnum.Day)}
           </WeekDay>
         ))}
       </WeekDays>
@@ -118,8 +171,23 @@ export const DatePicker = ({
               isHoliday,
               holidayName,
             }) => {
-              const dateKey = value.format('YYYY-MM-DD')
+              const dateKey = value.format(FormatEnum.YearMonthDayFormat)
               const tasksForDate = tasksDate[dateKey] || []
+              const isStartDate =
+                rangeDays &&
+                dateKey ===
+                  (dayjs(rangeDays.from).isBefore(getEndDateForClasses())
+                    ? rangeDays.from
+                    : rangeDays.to)
+              const isEndDate =
+                rangeDays &&
+                dateKey ===
+                  (dayjs(rangeDays.from).isBefore(getEndDateForClasses())
+                    ? rangeDays.to
+                    : rangeDays.from)
+              const isDateInRange = rangeDays
+                ? isInRange(value, rangeDays?.from, getEndDateForClasses())
+                : false
 
               return (
                 <DateDay
@@ -129,6 +197,9 @@ export const DatePicker = ({
                   $isWeekend={isWeekend || false}
                   $isToday={isToday || false}
                   $isHoliday={isHoliday || false}
+                  $isStartDate={isStartDate}
+                  $isEndDate={isEndDate}
+                  $isInRange={isDateInRange}
                   onClick={handleSelectDate(value)}
                   onMouseEnter={handleMouseEnter(holidayName)}
                   onMouseLeave={handleMouseLeave}
@@ -160,7 +231,7 @@ export const DatePicker = ({
           taskValue={taskValue}
           setTaskValue={setTaskValue}
           setTaskInCalendar={setTaskInCalendar}
-          placeholder='Create a task for the selected date'
+          placeholder='Task for the selected date'
         />
       )}
     </CalendarBlock>

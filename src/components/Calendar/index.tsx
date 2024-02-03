@@ -8,11 +8,12 @@ import { DatePicker } from '@/components/DatePicker'
 import { DateViewSelector } from '@/components/DateViewSelector'
 import { Filters } from '@/components/Filters'
 import { YearsMonthsView } from '@/components/YearsMonthsView'
+import { FormatEnum } from '@/constants/dateFormats'
 import GlobalConfig from '@/decorators/components/DatePickerConfig'
 import { WeekendStatusEnum } from '@/types'
 import { getDayOfWeek } from '@/utils/helpers/date'
 
-import { IHolidaysResponse, ITaskInCalendar } from './interface'
+import { IHolidaysResponse, IObj, ITaskInCalendar } from './interface'
 import { Container, FilterItemIcon, InputFilterBlock } from './styled'
 
 export const Calendar = () => {
@@ -25,11 +26,29 @@ export const Calendar = () => {
   const [startOfWeek, setStartOfWeek] = useState(1)
   const [holidays, setHolidays] = useState<IHolidaysResponse | undefined | null>()
   const [tasksDate, setTasksDate] = useState<ITaskInCalendar>({})
+  const [rangeDays, setRangeDays] = useState<IObj>({
+    from: '',
+    to: '',
+  })
 
-  const year = date.format('YYYY')
+  const year = date.format(FormatEnum.Year)
 
   const onClickShowMonthYear = () => {
     setShowMonthYear((prev) => !prev)
+  }
+
+  const setFromDate = (date: Dayjs) => {
+    setRangeDays({
+      ...rangeDays,
+      from: date.format(FormatEnum.YearMonthDayFormat),
+    })
+  }
+
+  const setToDate = (date: Dayjs) => {
+    setRangeDays({
+      ...rangeDays,
+      to: date.format(FormatEnum.YearMonthDayFormat),
+    })
   }
 
   const onChange = (date: Dayjs) => {
@@ -71,6 +90,18 @@ export const Calendar = () => {
             <FilterIcon />
           </FilterItemIcon>
         </InputFilterBlock>
+        <CustomInput
+          type={InputEnum.Date}
+          date={rangeDays.from.length > 0 && dayjs(rangeDays.from)}
+          onChooseDate={setFromDate}
+          placeholder='Choose a date from'
+        />
+        <CustomInput
+          type={InputEnum.Date}
+          date={rangeDays.to.length > 0 && dayjs(rangeDays.to)}
+          onChooseDate={setToDate}
+          placeholder='Choose a date to'
+        />
         <DateViewSelector
           shownDate={date}
           onChange={onChange}
@@ -93,6 +124,8 @@ export const Calendar = () => {
           statusWeekends={statusWeekends}
           setTasksDate={setTasksDate}
           tasksDate={tasksDate}
+          rangeDays={rangeDays}
+          setRangeDays={setRangeDays}
         />
         {showFilter && (
           <Filters

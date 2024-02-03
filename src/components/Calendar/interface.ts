@@ -19,3 +19,8 @@ export interface IHolidays {
 export interface ITaskInCalendar {
   [key: string]: string[]
 }
+
+export interface IObj {
+  from: string
+  to: string
+}
