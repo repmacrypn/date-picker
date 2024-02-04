@@ -12,6 +12,8 @@ import {
   CalendarBlock,
   CircleMarker,
   CircleTaskMarker,
+  ClearRangeBlock,
+  ClearRangeItem,
   DateDay,
   DateDays,
   Task,
@@ -42,6 +44,7 @@ export const DatePicker = ({
   const [taskValue, setTaskValue] = useState('')
 
   const dateKey = selectedDate.format(FormatEnum.YearMonthDayFormat)
+  const rangeNoEmpty = rangeDays?.from && rangeDays?.to
 
   const handleMouseEnter = (tooltip: string | undefined) => () => {
     if (tooltip) {
@@ -79,7 +82,7 @@ export const DatePicker = ({
         handleChangeState(rangeDays?.from, dateFormat)
       } else if (!rangeDays?.to.length && rangeDays?.from) {
         handleChangeState(rangeDays?.from, dateFormat)
-      } else if (rangeDays?.from && rangeDays?.to) {
+      } else if (rangeNoEmpty) {
         setRangeDays({ from: dateFormat, to: '' })
       }
     }
@@ -109,6 +112,15 @@ export const DatePicker = ({
     }
 
     return ''
+  }
+
+  const onClearRangeDays = () => {
+    if (setRangeDays) {
+      setRangeDays({
+        from: '',
+        to: '',
+      })
+    }
   }
 
   const changeStartWeekDay = (value: string) => () => {
@@ -233,6 +245,11 @@ export const DatePicker = ({
           setTaskInCalendar={setTaskInCalendar}
           placeholder='Task for the selected date'
         />
+      )}
+      {rangeNoEmpty && (
+        <ClearRangeBlock>
+          <ClearRangeItem onClick={onClearRangeDays}>Clear the range</ClearRangeItem>
+        </ClearRangeBlock>
       )}
     </CalendarBlock>
   )

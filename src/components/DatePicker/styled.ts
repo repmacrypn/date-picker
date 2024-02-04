@@ -220,3 +220,25 @@ export const CircleTaskMarker = styled.div`
     border-radius: 50%;
   }
 `
+
+export const ClearRangeBlock = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`
+
+export const ClearRangeItem = styled.div`
+  text-align: center;
+  border-bottom: ${({ theme }) => `1px solid ${theme.usedColors.gray1}`};
+  margin: ${({ theme }) => theme.valueInPx.px10} ${({ theme }) => theme.valueInPx.px0};
+  transition: ${({ theme }) => theme.animation.transition};
+
+  &:hover {
+    border-bottom: none;
+  }
+
+  &:active {
+    transform: ${({ theme }) => theme.animation.transformActive};
+  }
+`
