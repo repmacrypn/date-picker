@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 
 import { MoveToIcon } from '@/assets/icons/MoveToIcon'
 import { changeDateMonth } from '@/utils/helpers/date'
@@ -6,26 +6,24 @@ import { changeDateMonth } from '@/utils/helpers/date'
 import { IDateViewSelector } from './interface'
 import { Container, Date, Left, Right } from './styled'
 
-export const DateViewSelector = ({
-  shownDate,
-  onChange,
-  setShowMonthYear,
-}: IDateViewSelector) => {
-  const handleIconClick = (isNextMonth: boolean) => {
-    return () => {
-      onChange(changeDateMonth(shownDate, isNextMonth))
+export const DateViewSelector = memo(
+  ({ shownDate, onChange, setShowMonthYear }: IDateViewSelector) => {
+    const handleIconClick = (isNextMonth: boolean) => {
+      return () => {
+        onChange(changeDateMonth(shownDate, isNextMonth))
+      }
     }
-  }
 
-  return (
-    <Container>
-      <Left onClick={handleIconClick(false)}>
-        <MoveToIcon />
-      </Left>
-      <Date onClick={setShowMonthYear}>{shownDate?.format('MMMM YYYY')}</Date>
-      <Right onClick={handleIconClick(true)}>
-        <MoveToIcon />
-      </Right>
-    </Container>
-  )
-}
+    return (
+      <Container>
+        <Left onClick={handleIconClick(false)}>
+          <MoveToIcon />
+        </Left>
+        <Date onClick={setShowMonthYear}>{shownDate?.format('MMMM YYYY')}</Date>
+        <Right onClick={handleIconClick(true)}>
+          <MoveToIcon />
+        </Right>
+      </Container>
+    )
+  },
+)

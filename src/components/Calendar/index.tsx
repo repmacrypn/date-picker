@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useCallback, useEffect, useState } from 'react'
 import dayjs, { Dayjs } from 'dayjs'
 
 import { FilterIcon } from '@/assets/icons/FilterIcon'
@@ -19,7 +19,7 @@ import { Container, FilterItemIcon, InputFilterBlock } from './styled'
 const CALENDAR_API_URL = process.env.REACT_APP_CALENDAR_URL
 const CALENDAR_API_KEY = process.env.REACT_APP_CALENDAR_KEY
 
-export const Calendar = () => {
+export const Calendar = memo(() => {
   const [date, setDate] = useState<Dayjs>(dayjs())
   const [showMonthYear, setShowMonthYear] = useState(false)
   const [showFilter, setShowFilter] = useState(false)
@@ -36,35 +36,41 @@ export const Calendar = () => {
 
   const year = date.format(FormatEnum.Year)
 
-  const onClickShowMonthYear = () => {
+  const onClickShowMonthYear = useCallback(() => {
     setShowMonthYear((prev) => !prev)
-  }
+  }, [])
 
-  const setFromDate = (date: Dayjs) => {
-    setRangeDays({
-      ...rangeDays,
-      from: date.format(FormatEnum.YearMonthDayFormat),
-    })
-  }
+  const setFromDate = useCallback(
+    (date: Dayjs) => {
+      setRangeDays({
+        ...rangeDays,
+        from: date.format(FormatEnum.YearMonthDayFormat),
+      })
+    },
+    [rangeDays],
+  )
 
-  const setToDate = (date: Dayjs) => {
-    setRangeDays({
-      ...rangeDays,
-      to: date.format(FormatEnum.YearMonthDayFormat),
-    })
-  }
+  const setToDate = useCallback(
+    (date: Dayjs) => {
+      setRangeDays({
+        ...rangeDays,
+        to: date.format(FormatEnum.YearMonthDayFormat),
+      })
+    },
+    [rangeDays],
+  )
 
-  const onChange = (date: Dayjs) => {
+  const onChange = useCallback((date: Dayjs) => {
     setDate(date)
-  }
+  }, [])
 
-  const onClickShowFilter = () => {
+  const onClickShowFilter = useCallback(() => {
     setShowFilter((prev) => !prev)
-  }
+  }, [])
 
-  const setNumberStartOfWeek = (dayValue: string) => {
+  const setNumberStartOfWeek = useCallback((dayValue: string) => {
     setStartOfWeek(getDayOfWeek(dayValue))
-  }
+  }, [])
 
   useEffect(() => {
     async function fetchHolidays() {
@@ -141,4 +147,4 @@ export const Calendar = () => {
       </Container>
     </GlobalConfig>
   )
-}
+})
