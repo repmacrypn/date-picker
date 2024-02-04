@@ -16,6 +16,9 @@ import { getDayOfWeek } from '@/utils/helpers/date'
 import { IHolidaysResponse, IObj, ITaskInCalendar } from './interface'
 import { Container, FilterItemIcon, InputFilterBlock } from './styled'
 
+const CALENDAR_API_URL = process.env.REACT_APP_CALENDAR_URL
+const CALENDAR_API_KEY = process.env.REACT_APP_CALENDAR_KEY
+
 export const Calendar = () => {
   const [date, setDate] = useState<Dayjs>(dayjs())
   const [showMonthYear, setShowMonthYear] = useState(false)
@@ -66,7 +69,7 @@ export const Calendar = () => {
   useEffect(() => {
     async function fetchHolidays() {
       const response = await fetch(
-        `https://calendarific.com/api/v2/holidays?&api_key=022eade2bfd82f139588f89b56a5be9d0f0d648e&country=BY&year=${year}`,
+        `${CALENDAR_API_URL}holidays?&api_key=${CALENDAR_API_KEY}&country=BY&year=${year}`,
       )
       const data = await response.json()
 

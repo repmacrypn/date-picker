@@ -2764,6 +2764,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rollup/plugin-replace@npm:^5.0.1":
+  version: 5.0.5
+  resolution: "@rollup/plugin-replace@npm:5.0.5"
+  dependencies:
+    "@rollup/pluginutils": ^5.0.1
+    magic-string: ^0.30.3
+  peerDependencies:
+    rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
+  peerDependenciesMeta:
+    rollup:
+      optional: true
+  checksum: 5559b48fa098a842ddb3a25b23d9902d75496bed807d4cabac304bb7e75b06374ad4a44f7871ddcd1bfcf23e6015a0274d44564b42af54c722af0a514c247ec1
+  languageName: node
+  linkType: hard
+
 "@rollup/plugin-typescript@npm:^11.1.6":
   version: 11.1.6
   resolution: "@rollup/plugin-typescript@npm:11.1.6"
@@ -6708,6 +6723,7 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     rollup: ^4.9.4
+    rollup-plugin-dotenv: ^0.5.0
     rollup-plugin-dts: ^6.1.0
     rollup-plugin-peer-deps-external: ^2.2.4
     rollup-plugin-postcss: ^4.0.2
@@ -7067,6 +7083,13 @@ __metadata:
   version: 16.3.1
   resolution: "dotenv@npm:16.3.1"
   checksum: 15d75e7279018f4bafd0ee9706593dd14455ddb71b3bcba9c52574460b7ccaf67d5cf8b2c08a5af1a9da6db36c956a04a1192b101ee102a3e0cf8817bbcf3dfd
+  languageName: node
+  linkType: hard
+
+"dotenv@npm:^16.0.3":
+  version: 16.4.1
+  resolution: "dotenv@npm:16.4.1"
+  checksum: a343f0a1d156deef8c60034f797969867af4dbccfacedd4ac15fad04547e7ffe0553b58fc3b27a5837950f0d977e38e9234943fbcec4aeced4e3d044309a76ab
   languageName: node
   linkType: hard
 
@@ -12554,6 +12577,18 @@ __metadata:
   bin:
     rimraf: ./bin.js
   checksum: 3ea587b981a19016297edb96d1ffe48af7e6af69660e3b371dbfc73722a73a0b0e9be5c88089fbeeb866c389c1098e07f64929c7414290504b855f54f901ab10
+  languageName: node
+  linkType: hard
+
+"rollup-plugin-dotenv@npm:^0.5.0":
+  version: 0.5.0
+  resolution: "rollup-plugin-dotenv@npm:0.5.0"
+  dependencies:
+    "@rollup/plugin-replace": ^5.0.1
+    dotenv: ^16.0.3
+  peerDependencies:
+    rollup: ^1.20.0 || ^2.0.0 || ^3.0.0
+  checksum: 770fd0e66fc41f573b0dca40d325fe6cce2e4e6badd8561c1c1b24ada44b14438ed6624689862afaed47088c80b2754d911dcfd4dccf5ae45d2f03c896e171f2
   languageName: node
   linkType: hard
 
