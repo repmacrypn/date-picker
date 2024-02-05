@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React from 'react'
 
 import { DatePicker } from '@/components/DatePicker'
 import { DateViewSelector } from '@/components/DateViewSelector'
@@ -7,7 +7,7 @@ import GlobalConfig from '@/decorators/components/DatePickerConfig'
 import InputFilter from '@/decorators/components/InputFilter'
 import { useCalendarControl } from '@/hooks/useCalendarControl'
 
-export const Calendar = memo(() => {
+export const RangePicker = () => {
   const {
     onClickShowFilter,
     rangeDays,
@@ -19,11 +19,11 @@ export const Calendar = memo(() => {
     setTasksDate,
     onClickShowMonthYear,
     showMonthYear,
+    setShowMonthYear,
     startOfWeek,
-    setRangeDays,
     setNumberStartOfWeek,
     holidays,
-    tasksDate,
+    setRangeDays,
     date,
     onChange,
   } = useCalendarControl()
@@ -31,7 +31,7 @@ export const Calendar = memo(() => {
   return (
     <GlobalConfig>
       <InputFilter
-        datePicker
+        datePicker={false}
         date={date}
         onChooseDate={onChange}
         onClickShowFilter={onClickShowFilter}
@@ -52,24 +52,19 @@ export const Calendar = memo(() => {
           <YearsMonthsView
             shownDate={date}
             onChange={onChange}
-            setShowMonthYear={onClickShowMonthYear}
+            setShowMonthYear={setShowMonthYear}
           />
         )}
         <DatePicker
-          isRange
-          selectedDate={date}
           shownDate={date}
-          onChange={onChange}
           startOfWeek={startOfWeek}
           setStartOfWeek={setNumberStartOfWeek}
           holidays={holidays}
           statusWeekends={statusWeekends}
-          setTasksDate={setTasksDate}
-          tasksDate={tasksDate}
           rangeDays={rangeDays}
           setRangeDays={setRangeDays}
         />
       </InputFilter>
     </GlobalConfig>
   )
-})
+}

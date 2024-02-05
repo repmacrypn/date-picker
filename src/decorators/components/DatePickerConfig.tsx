@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { Container } from '@/components/Calendar/styled'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { ErrorFallback } from '@/components/ErrorBoundary/ErrorFallback'
 import { Theme } from '@/components/Theme'
@@ -11,8 +12,10 @@ const GlobalConfig = ({ children }: IGlobalConfig) => {
   return (
     <Theme>
       <ErrorBoundary fallback={<ErrorFallback />}>
-        <GlobalStyles />
-        {children}
+        <Container>
+          <GlobalStyles />
+          {children}
+        </Container>
       </ErrorBoundary>
     </Theme>
   )
