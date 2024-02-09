@@ -5,8 +5,8 @@ import { CalendarIcon } from '@/assets/icons/CalendarIcon'
 import { XIcon } from '@/assets/icons/XIcon'
 import { FormatEnum } from '@/constants/dateFormats'
 
-import { ICustomInput, InputEnum } from './interface'
 import { CalIcon, Container, DelIcon, InputContainer, InputItem } from './styled'
+import { ICustomInput, InputEnum } from './types'
 
 export const CustomInput = memo(
   ({
@@ -75,6 +75,7 @@ export const CustomInput = memo(
             </>
           ) : (
             <InputItem
+              data-testid='textboxInput'
               type='text'
               placeholder={placeholder}
               value={taskValue}

@@ -1,0 +1,26 @@
+export const holidaysMock = [
+  {
+    canonical_url: 'https://qqwww',
+    country: { id: '1234', name: 'Belarus' },
+    date: { iso: '2023-07-04', datetime: { year: 2023, month: 7, day: 4 } },
+    description: 'www',
+    locations: 'Vitebsk',
+    name: 'Independence Day',
+    primary_type: 'string',
+    states: 'US',
+    type: ['string', 'number'],
+    urlid: 'www',
+  },
+  {
+    canonical_url: 'https://qq',
+    country: { id: '123', name: 'Belarus' },
+    date: { iso: '2023-07-07', datetime: { year: 2023, month: 7, day: 7 } },
+    description: 'qwerty',
+    locations: 'Minsk',
+    name: 'Labor Day',
+    primary_type: 'string',
+    states: 'US',
+    type: ['string', 'number'],
+    urlid: 'qwerty',
+  },
+]

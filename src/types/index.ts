@@ -1,6 +1,10 @@
 import { Dayjs } from 'dayjs'
 
-import { IHolidaysResponse, IObj, ITaskInCalendar } from '@/components/Calendar/interface'
+import {
+  IHolidaysResponse,
+  IRangeDateObj,
+  ITaskInCalendar,
+} from '@/components/Calendar/types'
 
 export enum WeekendStatusEnum {
   WithWeekEnds = 'with',
@@ -9,7 +13,7 @@ export enum WeekendStatusEnum {
 
 export interface IUseCalendarPickerControl {
   onClickShowFilter: () => void
-  rangeDays: IObj
+  rangeDays: IRangeDateObj
   setFromDate: (date: Dayjs) => void
   setToDate: (date: Dayjs) => void
   showFilter: boolean
@@ -22,7 +26,7 @@ export interface IUseCalendarPickerControl {
   setNumberStartOfWeek: (dayValue: string) => void
   holidays: IHolidaysResponse | undefined | null
   tasksDate?: ITaskInCalendar
-  setRangeDays?: (date: IObj) => void
+  setRangeDays?: (date: IRangeDateObj) => void
   date: Dayjs
   onChange: (date: Dayjs) => void
   setShowMonthYear: (value: boolean) => void
@@ -30,5 +34,15 @@ export interface IUseCalendarPickerControl {
 
 export interface IUsePickerControlProps {
   selectedDate: Dayjs
-  onChangeRange?: (date: IObj) => void
+  onChangeRange?: (date: IRangeDateObj) => void
+}
+
+export interface ICalendarCell {
+  text: string
+  value: Dayjs
+  isCurrentMonth?: boolean
+  isWeekend: boolean
+  isToday?: boolean
+  isHoliday?: boolean
+  holidayName?: string
 }

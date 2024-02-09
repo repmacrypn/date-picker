@@ -1,5 +1,8 @@
 import styled, { css } from 'styled-components'
 
+import { DayCellProps } from '@/components/Calendar/types'
+import { forwardPropGuard } from '@/utils/helpers/date'
+
 export const CalendarBlock = styled.div`
   display: flex;
   flex-direction: column;
@@ -14,7 +17,9 @@ export const WeekDays = styled.div`
   margin-bottom: ${({ theme }) => theme.valueInPx.px2};
 `
 
-export const WeekDay = styled.h2<{ $isStartOfWeek: boolean }>`
+export const WeekDay = styled('h2').withConfig({
+  shouldForwardProp: forwardPropGuard<{ $isStartOfWeek: boolean }>(['$isStartOfWeek']),
+})<{ $isStartOfWeek: boolean }>`
   display: flex;
   justify-content: center;
   padding: ${({ theme }) => theme.valueInPx.px10};
@@ -26,22 +31,26 @@ export const WeekDay = styled.h2<{ $isStartOfWeek: boolean }>`
   text-align: center;
 `
 
-export const DateDays = styled.div<{ $withWeekends: boolean }>`
+export const DateDays = styled('div').withConfig({
+  shouldForwardProp: forwardPropGuard<{ $withWeekends: boolean }>(['$withWeekends']),
+})<{ $withWeekends: boolean }>`
   display: grid;
   grid-template-columns: repeat(${({ $withWeekends }) => ($withWeekends ? 7 : 5)}, 1fr);
   gap: ${({ theme }) => theme.valueInPx.px8};
 `
 
-export const DateDay = styled.div<{
-  $isSelected?: boolean
-  $isCurrentMonth: boolean | string
-  $isWeekend: boolean
-  $isToday: boolean
-  $isHoliday: boolean
-  $isInRange: boolean
-  $isStartDate: boolean | undefined
-  $isEndDate: boolean | undefined
-}>`
+export const DateDay = styled('div').withConfig({
+  shouldForwardProp: forwardPropGuard<DayCellProps>([
+    '$isSelected',
+    '$isCurrentMonth',
+    '$isWeekend',
+    '$isToday',
+    '$isHoliday',
+    '$isInRange',
+    '$isStartDate',
+    '$isEndDate',
+  ]),
+})<DayCellProps>`
   padding: ${({ theme }) => theme.valueInPx.px8};
   text-align: center;
   font-size: ${({ theme }) => theme.fontSize.l};

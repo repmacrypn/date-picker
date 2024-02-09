@@ -1,6 +1,10 @@
 import { Dayjs } from 'dayjs'
 
-import { IHolidaysResponse, IObj, ITaskInCalendar } from '@/components/Calendar/interface'
+import {
+  IHolidaysResponse,
+  IRangeDateObj,
+  ITaskInCalendar,
+} from '@/components/Calendar/types'
 import { WeekendStatusEnum } from '@/types'
 
 export interface IDatePicker {
@@ -13,7 +17,7 @@ export interface IDatePicker {
   statusWeekends: WeekendStatusEnum
   setTasksDate?: (value: ITaskInCalendar) => void
   tasksDate?: ITaskInCalendar
-  rangeDays?: IObj
-  setRangeDays?: (data: IObj) => void
+  rangeDays?: IRangeDateObj
+  setRangeDays?: (data: IRangeDateObj) => void
   isRange?: boolean
 }

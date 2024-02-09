@@ -2,7 +2,7 @@ import React from 'react'
 import dayjs from 'dayjs'
 
 import { CustomInput } from '@/components/CustomInput'
-import { InputEnum } from '@/components/CustomInput/interface'
+import { InputEnum } from '@/components/CustomInput/types'
 import { widthInputFilter } from '@/decorators'
 import { IDecInputFilter } from '@/decorators/interface'
 

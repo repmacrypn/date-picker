@@ -1,7 +1,11 @@
 import { useCallback, useEffect, useState } from 'react'
 import dayjs, { Dayjs } from 'dayjs'
 
-import { IHolidaysResponse, IObj, ITaskInCalendar } from '@/components/Calendar/interface'
+import {
+  IHolidaysResponse,
+  IRangeDateObj,
+  ITaskInCalendar,
+} from '@/components/Calendar/types'
 import { FormatEnum } from '@/constants/dateFormats'
 import { IUseCalendarPickerControl, WeekendStatusEnum } from '@/types'
 import { getDayOfWeek } from '@/utils/helpers/date'
@@ -19,7 +23,7 @@ export const useCalendarControl = (): IUseCalendarPickerControl => {
   const [startOfWeek, setStartOfWeek] = useState(1)
   const [holidays, setHolidays] = useState<IHolidaysResponse | undefined | null>()
   const [tasksDate, setTasksDate] = useState<ITaskInCalendar>({})
-  const [rangeDays, setRangeDays] = useState<IObj>({
+  const [rangeDays, setRangeDays] = useState<IRangeDateObj>({
     from: '',
     to: '',
   })

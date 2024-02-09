@@ -15,7 +15,7 @@ export const DateViewSelector = memo(
     }
 
     return (
-      <Container>
+      <Container data-testid='SelectorItem'>
         <Left onClick={handleIconClick(false)}>
           <MoveToIcon />
         </Left>

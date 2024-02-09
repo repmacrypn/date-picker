@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import { Dayjs } from 'dayjs'
 
-import { IObj } from '@/components/Calendar/interface'
+import { IRangeDateObj } from '@/components/Calendar/types'
 import { IFilters } from '@/components/Filters/interface'
 
 export interface IDecInputFilter extends IFilters {
@@ -9,7 +9,7 @@ export interface IDecInputFilter extends IFilters {
   date: false | Dayjs
   onChooseDate: (date: Dayjs) => void
   onClickShowFilter: () => void
-  rangeDays: IObj
+  rangeDays: IRangeDateObj
   setFromDate: (date: Dayjs) => void
   setToDate: (date: Dayjs) => void
   children: ReactNode

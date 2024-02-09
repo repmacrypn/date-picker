@@ -1,4 +1,4 @@
-import { ITaskInCalendar } from '@/components/Calendar/interface'
+import { ITaskInCalendar } from '@/components/Calendar/types'
 import { WeekendStatusEnum } from '@/types'
 
 export interface IFilters {

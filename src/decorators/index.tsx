@@ -3,7 +3,7 @@ import React, { ComponentType } from 'react'
 import { FilterIcon } from '@/assets/icons/FilterIcon'
 import { FilterItemIcon, InputFilterBlock } from '@/components/Calendar/styled'
 import { CustomInput } from '@/components/CustomInput'
-import { InputEnum } from '@/components/CustomInput/interface'
+import { InputEnum } from '@/components/CustomInput/types'
 import { Filters } from '@/components/Filters'
 import { IDecInputFilter, IGlobalConfig } from '@/decorators/interface'
 
@@ -26,6 +26,7 @@ export const widthInputFilter = <P extends object>(Component: React.ComponentTyp
         <>
           <InputFilterBlock>
             <CustomInput
+              data-testid='inputDatePicker'
               type={InputEnum.Date}
               date={date}
               onChooseDate={onChooseDate}

@@ -2,7 +2,7 @@ import React, { memo } from 'react'
 import dayjs from 'dayjs'
 
 import { CustomInput } from '@/components/CustomInput'
-import { InputEnum } from '@/components/CustomInput/interface'
+import { InputEnum } from '@/components/CustomInput/types'
 import { FormatEnum } from '@/constants/dateFormats'
 import { useDatePickerControl } from '@/hooks/useDatePickerControl'
 import { WeekendStatusEnum } from '@/types'
@@ -74,7 +74,7 @@ export const DatePicker = memo(
     const dateKey = selectedDate?.format(FormatEnum.YearMonthDayFormat)
 
     return (
-      <CalendarBlock>
+      <CalendarBlock data-testid='calendar'>
         <WeekDays>
           {rows[0].map(({ value }, i) => (
             <WeekDay
