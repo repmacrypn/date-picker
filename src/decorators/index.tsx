@@ -32,8 +32,8 @@ export const widthInputFilter = <P extends object>(Component: React.ComponentTyp
               onChooseDate={onChooseDate}
               placeholder='Choose Date (yyyy-mm-dd)'
             />
-            <FilterItemIcon onClick={onClickShowFilter}>
-              <FilterIcon />
+            <FilterItemIcon data-testid='filterIconBlock' onClick={onClickShowFilter}>
+              <FilterIcon data-testid='filterIcon' />
             </FilterItemIcon>
           </InputFilterBlock>
           {children}

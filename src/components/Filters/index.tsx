@@ -19,7 +19,7 @@ export const Filters = ({
   }
 
   return (
-    <Wrapper>
+    <Wrapper data-testid='displayFilter'>
       <CloseIcon onClick={onClickShowFilter}>
         <XIcon />
       </CloseIcon>

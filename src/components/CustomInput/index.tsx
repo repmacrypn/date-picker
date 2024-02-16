@@ -75,7 +75,6 @@ export const CustomInput = memo(
             </>
           ) : (
             <InputItem
-              data-testid='textboxInput'
               type='text'
               placeholder={placeholder}
               value={taskValue}

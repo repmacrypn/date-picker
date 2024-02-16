@@ -74,7 +74,7 @@ export const DatePicker = memo(
     const dateKey = selectedDate?.format(FormatEnum.YearMonthDayFormat)
 
     return (
-      <CalendarBlock data-testid='calendar'>
+      <CalendarBlock data-testid='calendarItem'>
         <WeekDays>
           {rows[0].map(({ value }, i) => (
             <WeekDay
@@ -122,6 +122,7 @@ export const DatePicker = memo(
                 return (
                   <DateDay
                     key={`${text} - ${value}`}
+                    data-testid='dayCell'
                     $isSelected={value.toString() === selectedDate?.toString()}
                     $isCurrentMonth={isCurrentMonth || false}
                     $isWeekend={isWeekend || false}
@@ -149,13 +150,13 @@ export const DatePicker = memo(
           </TooltipBlock>
         )}
         {tasksDate && dateKey && tasksDate[dateKey] && (
-          <TaskList>
+          <TaskList data-testid='taskList'>
             {tasksDate[dateKey].map((task) => {
               return <Task key={`${task}-${dateKey}`}>{task}</Task>
             })}
           </TaskList>
         )}
-        {tasksDate && showTaskControl && (
+        {showTaskControl && (
           <CustomInput
             type={InputEnum.Task}
             taskValue={taskValue}
@@ -164,7 +165,7 @@ export const DatePicker = memo(
             placeholder='Task for the selected date'
           />
         )}
-        {rangeDays && rangeNoEmpty && (
+        {rangeNoEmpty && (
           <ClearRangeBlock>
             <ClearRangeItem onClick={onClearRangeDays}>Clear the range</ClearRangeItem>
           </ClearRangeBlock>
