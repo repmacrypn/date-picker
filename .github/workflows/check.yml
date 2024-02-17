@@ -1,8 +1,26 @@
-name: hello-world
+name: Date Picker Workflow
 on: push
 jobs:
-  sample-job:
+  build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
     steps:
-      - name: my-step
-        run: echo "Hello World!"
+      - uses: actions/checkout@v3
+
+      - name: Starting Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: install modules
+        run: yarn install
+      - name: build project
+        run: yarn build-sb
+      - name: check rollup build
+        run: yarn build
+      - name: unit tests
+        run: yarn test
+      - name: check code style
+        run: yarn lint:fix
