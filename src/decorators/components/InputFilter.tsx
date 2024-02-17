@@ -15,6 +15,7 @@ const InputFilter = ({
   return (
     <>
       <CustomInput
+        data-cy='inputFrom'
         type={InputEnum.Date}
         date={rangeDays.from.length > 0 && dayjs(rangeDays.from)}
         onChooseDate={setFromDate}

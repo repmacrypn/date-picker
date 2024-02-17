@@ -18,7 +18,7 @@ export const YearsMonthsView = memo(
     }
 
     return (
-      <Wrapper>
+      <Wrapper data-cy='blockYearMonth'>
         <CustomSelect
           type={SelectEnum.Year}
           selectedValue={shownDate?.year()}

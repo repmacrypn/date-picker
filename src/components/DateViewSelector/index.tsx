@@ -16,11 +16,11 @@ export const DateViewSelector = memo(
 
     return (
       <Container data-testid='selectorItem'>
-        <Left onClick={handleIconClick(false)}>
+        <Left data-cy='dateInSelector' onClick={handleIconClick(false)}>
           <MoveToIcon />
         </Left>
         <Date onClick={setShowMonthYear}>{shownDate?.format('MMMM YYYY')}</Date>
-        <Right onClick={handleIconClick(true)}>
+        <Right data-cy='nextIcon' onClick={handleIconClick(true)}>
           <MoveToIcon />
         </Right>
       </Container>

@@ -20,5 +20,5 @@
     "emitDeclarationOnly": true
   },
   "include": ["src", "**/*.ts", "**/*.tsx", "./declare.d.tsx"],
-  "exclude": ["node_modules", "build"]
+  "exclude": ["node_modules", "build", "cypress", "./cypress.config.ts"]
 }

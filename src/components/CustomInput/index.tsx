@@ -55,7 +55,7 @@ export const CustomInput = memo(
     }, [date, setChooseDate])
 
     return (
-      <Container $ruleDateInput={ruleDateInput}>
+      <Container data-cy='inputItem' $ruleDateInput={ruleDateInput}>
         <InputContainer>
           {ruleDateInput ? (
             <>
@@ -69,12 +69,13 @@ export const CustomInput = memo(
                 onChange={onChangeInput}
                 onKeyUp={onKeyUp}
               />
-              <DelIcon onClick={onClickDel}>
+              <DelIcon data-cy='delIcon' onClick={onClickDel}>
                 <XIcon />
               </DelIcon>
             </>
           ) : (
             <InputItem
+              data-cy='inputItemTask'
               type='text'
               placeholder={placeholder}
               value={taskValue}
