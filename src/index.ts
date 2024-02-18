@@ -1,1 +1,1 @@
-export { DatePicker } from './components/DatePicker'
+export { Calendar } from './components/Calendar'
