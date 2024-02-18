@@ -23,4 +23,4 @@ jobs:
       - name: unit tests
         run: yarn test
       - name: check code style
-        run: yarn lint:fix
+        run: yarn lint-fix
