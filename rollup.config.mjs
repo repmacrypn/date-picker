@@ -54,6 +54,7 @@ export default [
       terser(),
       dotenv(),
       replace({
+        preventAssignment: true,
         'process.env.REACT_APP_CALENDAR_URL': JSON.stringify(
           process.env.REACT_APP_CALENDAR_URL,
         ),

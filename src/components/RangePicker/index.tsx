@@ -58,6 +58,7 @@ export const RangePicker = () => {
         <DatePicker
           shownDate={date}
           startOfWeek={startOfWeek}
+          selectedDate={date}
           setStartOfWeek={setNumberStartOfWeek}
           holidays={holidays}
           statusWeekends={statusWeekends}
