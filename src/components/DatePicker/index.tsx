@@ -1,11 +1,9 @@
 import React, { memo } from 'react'
-import dayjs from 'dayjs'
 
+import { RemoveTaskIcon } from '@/assets/icons/RemoveTaskIcon'
 import { CustomInput } from '@/components/CustomInput'
-import { InputEnum } from '@/components/CustomInput/types'
-import { FormatEnum } from '@/constants/dateFormats'
+import { FormatEnum, InputEnum, WeekendStatusEnum } from '@/constants/enums'
 import { useDatePickerControl } from '@/hooks/useDatePickerControl'
-import { WeekendStatusEnum } from '@/types'
 import { getDayOfWeek } from '@/utils/helpers/date'
 
 import { IDatePicker } from './interface'
@@ -17,6 +15,7 @@ import {
   ClearRangeItem,
   DateDay,
   DateDays,
+  RemoveIcon,
   Task,
   TaskList,
   TooltipBlock,
@@ -56,6 +55,9 @@ export const DatePicker = memo(
       getEndDateForClasses,
       handleSelectDate,
       isInRange,
+      removeTaskFromCalendar,
+      isStartDate,
+      isEndDate,
     } = useDatePickerControl({
       shownDate,
       selectedDate,
@@ -103,20 +105,11 @@ export const DatePicker = memo(
               }) => {
                 const dateKey = value.format(FormatEnum.YearMonthDayFormat)
                 const tasksForDate = tasksDate ? tasksDate[dateKey] : []
-                const isStartDate =
-                  rangeDays &&
-                  dateKey ===
-                    (dayjs(rangeDays.from).isBefore(getEndDateForClasses())
-                      ? rangeDays.from
-                      : rangeDays.to)
-                const isEndDate =
-                  rangeDays &&
-                  dateKey ===
-                    (dayjs(rangeDays.from).isBefore(getEndDateForClasses())
-                      ? rangeDays.to
-                      : rangeDays.from)
+                const endDate = getEndDateForClasses(rangeDays)
+                const isStartDateValue = isStartDate(rangeDays, dateKey, endDate)
+                const isEndDateValue = isEndDate(rangeDays, dateKey, endDate)
                 const isDateInRange = rangeDays
-                  ? isInRange(value, rangeDays?.from, getEndDateForClasses())
+                  ? isInRange(value, rangeDays?.from, getEndDateForClasses(rangeDays))
                   : false
 
                 return (
@@ -128,8 +121,8 @@ export const DatePicker = memo(
                     $isWeekend={isWeekend || false}
                     $isToday={isToday || false}
                     $isHoliday={isHoliday || false}
-                    $isStartDate={isStartDate}
-                    $isEndDate={isEndDate}
+                    $isStartDate={isStartDateValue}
+                    $isEndDate={isEndDateValue}
                     $isInRange={isDateInRange}
                     onClick={handleSelectDate(value)}
                     onMouseEnter={handleMouseEnter(holidayName)}
@@ -152,7 +145,14 @@ export const DatePicker = memo(
         {tasksDate && dateKey && tasksDate[dateKey] && (
           <TaskList data-testid='taskList'>
             {tasksDate[dateKey].map((task) => {
-              return <Task key={`${task}-${dateKey}`}>{task}</Task>
+              return (
+                <Task key={`${task}-${dateKey}`}>
+                  {task}
+                  <RemoveIcon onClick={removeTaskFromCalendar(task)}>
+                    <RemoveTaskIcon />
+                  </RemoveIcon>
+                </Task>
+              )
             })}
           </TaskList>
         )}

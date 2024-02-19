@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useCallback } from 'react'
 
 import { MoveToIcon } from '@/assets/icons/MoveToIcon'
 import { changeDateMonth } from '@/utils/helpers/date'
@@ -8,11 +8,14 @@ import { Container, Date, Left, Right } from './styled'
 
 export const DateViewSelector = memo(
   ({ shownDate, onChange, setShowMonthYear }: IDateViewSelector) => {
-    const handleIconClick = (isNextMonth: boolean) => {
-      return () => {
-        onChange(changeDateMonth(shownDate, isNextMonth))
-      }
-    }
+    const handleIconClick = useCallback(
+      (isNextMonth: boolean) => {
+        return () => {
+          onChange(changeDateMonth(shownDate, isNextMonth))
+        }
+      },
+      [onChange, shownDate],
+    )
 
     return (
       <Container data-testid='selectorItem'>

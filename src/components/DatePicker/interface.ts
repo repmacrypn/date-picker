@@ -5,7 +5,7 @@ import {
   IRangeDateObj,
   ITaskInCalendar,
 } from '@/components/Calendar/types'
-import { WeekendStatusEnum } from '@/types'
+import { WeekendStatusEnum } from '@/constants/enums'
 
 export interface IDatePicker {
   shownDate: Dayjs

@@ -6,8 +6,8 @@ import {
   IRangeDateObj,
   ITaskInCalendar,
 } from '@/components/Calendar/types'
-import { FormatEnum } from '@/constants/dateFormats'
-import { IUseCalendarPickerControl, WeekendStatusEnum } from '@/types'
+import { FormatEnum, WeekendStatusEnum } from '@/constants/enums'
+import { IUseCalendarPickerControl } from '@/types'
 import { getDayOfWeek } from '@/utils/helpers/date'
 
 const CALENDAR_API_URL = process.env.REACT_APP_CALENDAR_URL

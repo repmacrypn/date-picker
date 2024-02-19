@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 
-import { ICustomSelect, SelectEnum } from '@/components/CustomSelect/types'
+import { SelectEnum } from '@/constants/enums'
 import { months } from '@/constants/months'
 import { range } from '@/utils/helpers/date'
 
 import { ArrowIcon, Container, Option, OptionsContainer, SelectedOption } from './styled'
+import { ICustomSelect } from './types'
 
 export const CustomSelect = ({ selectedValue, onSelect, type }: ICustomSelect) => {
   const [isMonthOpen, setIsMonthOpen] = useState(false)

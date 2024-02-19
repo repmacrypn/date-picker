@@ -201,11 +201,15 @@ export const TaskList = styled.div`
   flex-direction: column;
   align-items: center;
   gap: ${({ theme }) => theme.valueInPx.px5};
+  position: relative;
   width: 100%;
   margin: ${({ theme }) => theme.valueInPx.px20} ${({ theme }) => theme.valueInPx.px0};
 `
 
 export const Task = styled.h2`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding-left: ${({ theme }) => theme.valueInPx.px10};
   margin: ${({ theme }) => theme.valueInPx.px0} ${({ theme }) => theme.valueInPx.px10};
   width: 100%;
@@ -214,6 +218,18 @@ export const Task = styled.h2`
   line-height: 1.4;
   background-color: ${({ theme }) => theme.usedColors.gray1};
   color: ${({ theme }) => theme.usedColors.black};
+`
+
+export const RemoveIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: ${({ theme }) => theme.valueInPx.px5};
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.2);
+  }
 `
 
 export const CircleTaskMarker = styled.div`

@@ -6,7 +6,7 @@ import { IFilters } from '@/components/Filters/interface'
 
 export interface IDecInputFilter extends IFilters {
   datePicker: boolean
-  date: false | Dayjs
+  date: Dayjs
   onChooseDate: (date: Dayjs) => void
   onClickShowFilter: () => void
   rangeDays: IRangeDateObj

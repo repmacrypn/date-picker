@@ -1,28 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import dayjs, { Dayjs } from 'dayjs'
 
+import { IRangeDateObj } from '@/components/Calendar/types'
 import { IDatePicker } from '@/components/DatePicker/interface'
-import { FormatEnum } from '@/constants/dateFormats'
-import { ICalendarCell } from '@/types'
+import { FormatEnum } from '@/constants/enums'
+import { IUseDatePickerControl } from '@/types'
 import { getCalendarRows } from '@/utils/helpers/date'
-
-interface IUseDatePickerControl {
-  rows: Array<ICalendarCell[]>
-  rangeNoEmpty: string | undefined
-  holiday: null | string
-  taskValue: string
-  showTooltip: boolean
-  showTaskControl: boolean
-  handleMouseEnter: (tooltip: string | undefined) => () => void
-  handleMouseLeave: () => void
-  setTaskInCalendar: () => void
-  setTaskValue: (task: string) => void
-  changeStartWeekDay: (value: string) => () => void
-  onClearRangeDays: () => void
-  getEndDateForClasses: () => string
-  handleSelectDate: (value: Dayjs) => () => void
-  isInRange: (date: Dayjs, startDate: string, endDate: string) => boolean
-}
 
 export const useDatePickerControl = ({
   shownDate,
@@ -120,16 +103,6 @@ export const useDatePickerControl = ({
     ],
   )
 
-  const getEndDateForClasses = useCallback(() => {
-    if (rangeDays) {
-      if (rangeDays.to) return rangeDays.to
-
-      return rangeDays.from
-    }
-
-    return ''
-  }, [rangeDays])
-
   const onClearRangeDays = useCallback(() => {
     if (setRangeDays) {
       setRangeDays({
@@ -138,6 +111,26 @@ export const useDatePickerControl = ({
       })
     }
   }, [setRangeDays])
+
+  const removeTaskFromCalendar = useCallback(
+    (taskToRemove: string) => () => {
+      if (selectedDate) {
+        const dateKey = selectedDate?.format(FormatEnum.YearMonthDayFormat)
+        const tasksForDate = tasksDate ? tasksDate[dateKey] || [] : []
+
+        if (setTasksDate) {
+          const updatedTasks = {
+            ...tasksDate,
+            [dateKey]: tasksForDate.filter((task) => task !== taskToRemove),
+          }
+
+          setTasksDate(updatedTasks)
+          localStorage.setItem('tasks', JSON.stringify(updatedTasks))
+        }
+      }
+    },
+    [selectedDate, setTasksDate, tasksDate],
+  )
 
   const changeStartWeekDay = useCallback(
     (value: string) => () => {
@@ -177,6 +170,46 @@ export const useDatePickerControl = ({
     }
   }, [setTasksDate])
 
+  const getEndDateForClasses = useCallback((rangeDays: IRangeDateObj | undefined) => {
+    if (rangeDays) {
+      if (rangeDays.to) return rangeDays.to
+
+      return rangeDays.from
+    }
+
+    return ''
+  }, [])
+
+  const isStartDate = (
+    rangeDays: IRangeDateObj | undefined,
+    dateKey: string,
+    endDate: string,
+  ) => {
+    if (rangeDays) {
+      return (
+        dateKey ===
+        (dayjs(rangeDays.from).isBefore(endDate) ? rangeDays.from : rangeDays.to)
+      )
+    }
+
+    return false
+  }
+
+  const isEndDate = (
+    rangeDays: IRangeDateObj | undefined,
+    dateKey: string,
+    endDate: string,
+  ) => {
+    if (rangeDays) {
+      return (
+        dateKey ===
+        (dayjs(rangeDays.from).isBefore(endDate) ? rangeDays.to : rangeDays.from)
+      )
+    }
+
+    return false
+  }
+
   return {
     rows,
     rangeNoEmpty,
@@ -191,6 +224,9 @@ export const useDatePickerControl = ({
     changeStartWeekDay,
     onClearRangeDays,
     getEndDateForClasses,
+    isStartDate,
+    isEndDate,
+    removeTaskFromCalendar,
     handleSelectDate,
     isInRange,
   }

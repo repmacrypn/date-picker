@@ -5,10 +5,35 @@ import {
   IRangeDateObj,
   ITaskInCalendar,
 } from '@/components/Calendar/types'
+import { WeekendStatusEnum } from '@/constants/enums'
 
-export enum WeekendStatusEnum {
-  WithWeekEnds = 'with',
-  WithoutWeekEnds = 'without',
+export interface IUseDatePickerControl {
+  rows: Array<ICalendarCell[]>
+  rangeNoEmpty: string | undefined
+  holiday: null | string
+  taskValue: string
+  showTooltip: boolean
+  showTaskControl: boolean
+  handleMouseEnter: (tooltip: string | undefined) => () => void
+  handleMouseLeave: () => void
+  removeTaskFromCalendar: (task: string) => () => void
+  setTaskInCalendar: () => void
+  setTaskValue: (task: string) => void
+  changeStartWeekDay: (value: string) => () => void
+  onClearRangeDays: () => void
+  getEndDateForClasses: (rangeDays: IRangeDateObj | undefined) => string
+  isStartDate: (
+    rangeDays: IRangeDateObj | undefined,
+    dateKey: string,
+    endDate: string,
+  ) => boolean
+  isEndDate: (
+    rangeDays: IRangeDateObj | undefined,
+    dateKey: string,
+    endDate: string,
+  ) => boolean
+  handleSelectDate: (value: Dayjs) => () => void
+  isInRange: (date: Dayjs, startDate: string, endDate: string) => boolean
 }
 
 export interface IUseCalendarPickerControl {

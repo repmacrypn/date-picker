@@ -1,6 +1,6 @@
 import React, { memo, useCallback } from 'react'
 
-import { WeekendStatusEnum } from '@/types'
+import { WeekendStatusEnum } from '@/constants/enums'
 
 import { IToggler } from './interface'
 import { Container, ToggleItem, Wrapper } from './styled'

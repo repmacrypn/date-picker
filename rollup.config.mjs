@@ -3,6 +3,7 @@ import babel from '@rollup/plugin-babel'
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
+import replace from '@rollup/plugin-replace'
 import dts from 'rollup-plugin-dts'
 import external from 'rollup-plugin-peer-deps-external'
 import { terser } from 'rollup-plugin-terser'
@@ -52,6 +53,14 @@ export default [
       }),
       terser(),
       dotenv(),
+      replace({
+        'process.env.REACT_APP_CALENDAR_URL': JSON.stringify(
+          process.env.REACT_APP_CALENDAR_URL,
+        ),
+        'process.env.REACT_APP_CALENDAR_KEY': JSON.stringify(
+          process.env.REACT_APP_CALENDAR_KEY,
+        ),
+      }),
     ],
   },
   {

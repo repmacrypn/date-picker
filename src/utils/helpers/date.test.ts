@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 
+import { WeekendStatusEnum } from '@/constants/enums'
 import { holidaysMock } from '@/constants/mockData'
-import { WeekendStatusEnum } from '@/types'
 import {
   changeDateMonth,
   forwardPropGuard,

@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 
 import { CustomSelect } from '@/components/CustomSelect'
-import { SelectEnum } from '@/components/CustomSelect/types'
+import { SelectEnum } from '@/constants/enums'
 
 import { IDisplayYearMonths } from './interface'
 import { Wrapper } from './styled'

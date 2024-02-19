@@ -2,7 +2,8 @@ import dayjs, { Dayjs } from 'dayjs'
 import isoWeek from 'dayjs/plugin/isoWeek'
 
 import { IHolidays } from '@/components/Calendar/types'
-import { ICalendarCell, WeekendStatusEnum } from '@/types'
+import { WeekendStatusEnum } from '@/constants/enums'
+import { ICalendarCell } from '@/types'
 
 dayjs.extend(isoWeek)
 
